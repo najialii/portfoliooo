@@ -17,7 +17,8 @@ const translations = {
       location: 'Based in Riyadh & Addis Ababa',
       title: 'Scale Your',
       titleHighlight: 'Vision.',
-      subtitle: 'Specializing in high-performance eCommerce and B2B SaaS for the Middle Eastern market. I build the infrastructure that powers Saudi\'s next generation of digital leaders.'
+      subtitle: 'Specializing in high-performance eCommerce and B2B SaaS for the Middle Eastern market. I build the infrastructure that powers Saudi\'s next generation of digital leaders.',
+      downloadCV: 'Download CV'
     },
     projects: {
       title: 'Strategic Solutions',
@@ -104,7 +105,8 @@ const translations = {
       location: 'مقيم في الرياض وأديس أبابا',
       title: 'طور',
       titleHighlight: 'رؤيتك.',
-      subtitle: 'متخصص في التجارة الإلكترونية عالية الأداء وحلول B2B SaaS لسوق الشرق الأوسط. أبني البنية التحتية التي تدعم الجيل القادم من القادة الرقميين في السعودية.'
+      subtitle: 'متخصص في التجارة الإلكترونية عالية الأداء وحلول B2B SaaS لسوق الشرق الأوسط. أبني البنية التحتية التي تدعم الجيل القادم من القادة الرقميين في السعودية.',
+      downloadCV: 'تحميل السيرة الذاتية'
     },
     projects: {
       title: 'الحلول الاستراتيجية',
@@ -192,14 +194,23 @@ export default function SaudiStartupPortfolio() {
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3 z-[100]">
         <div className="flex justify-between items-center">
           <span className="font-bold tracking-tighter text-xl">NAJI.</span>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
-            <a href="#work" className="hover:text-white transition-colors">{t.nav.solutions}</a>
-            <a href="#tech" className="hover:text-white transition-colors">{t.nav.techStack}</a>
-            <a href="/playground" className="hover:text-purple-400 transition-colors flex items-center gap-1">
-              <FiCode className="text-sm" />
-              {t.nav.playground}
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
+              <a href="#work" className="hover:text-white transition-colors">{t.nav.solutions}</a>
+              <a href="#tech" className="hover:text-white transition-colors">{t.nav.techStack}</a>
+              <a href="/playground" className="hover:text-purple-400 transition-colors flex items-center gap-1">
+                <FiCode className="text-sm" />
+                {t.nav.playground}
+              </a>
+              <a href="#contact" className="hover:text-emerald-400 transition-colors px-4 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-emerald-400">{t.nav.hireMe}</a>
+            </div>
+            <a 
+              href="/playground"
+              className="md:hidden p-2 bg-purple-500/10 hover:bg-purple-500/20 rounded-full border border-purple-500/20 transition-all"
+              title={t.nav.playground}
+            >
+              <FiCode className="text-lg text-purple-400" />
             </a>
-            <a href="#contact" className="hover:text-emerald-400 transition-colors px-4 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-emerald-400">{t.nav.hireMe}</a>
             <button 
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
               className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 transition-all flex items-center gap-2"
@@ -230,6 +241,19 @@ export default function SaudiStartupPortfolio() {
           <p className="max-w-2xl mx-auto text-lg text-slate-400 leading-relaxed mb-10">
             {t.hero.subtitle}
           </p>
+          <motion.a
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            href="/Naji-Ali-Resume.pdf"
+            download="Naji-Ali-Resume.pdf"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-105"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            {t.hero.downloadCV}
+          </motion.a>
         </div>
       </section>
 
@@ -424,23 +448,23 @@ export default function SaudiStartupPortfolio() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 href="mailto:Najialii249@gmail.com"
-                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2"
+                className="w-16 h-16 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center"
+                title="Email: Najialii249@gmail.com"
               >
-                <FiMail className="text-xl" />
-                {t.contact.email}: Najialii249@gmail.com
+                <FiMail className="text-2xl" />
               </motion.a>
               <motion.a 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                href="https://wa.me/25933955241"
+                href="https://wa.me/251933955241"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2"
+                className="w-16 h-16 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center"
+                title="WhatsApp: +251 93 395 5241"
               >
-                <FaWhatsapp className="text-xl" />
-                {t.contact.whatsapp}: +259 33955241
+                <FaWhatsapp className="text-2xl" />
               </motion.a>
             </div>
             <motion.div 
@@ -471,7 +495,7 @@ export default function SaudiStartupPortfolio() {
       </footer>
 
       <a 
-        href="https://wa.me/25933955241"
+        href="https://wa.me/251933955241"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all z-50 flex items-center justify-center group"
