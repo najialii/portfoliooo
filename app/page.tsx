@@ -56,7 +56,7 @@ const translations = {
       title: 'My Journey',
       minimoon: {
         date: 'Dec 2023 - Nov 2025',
-        role: 'Full-Stack Software Engineer',
+        role: 'Full-Stack Developer',
         company: 'Minimoon (Remote)',
         points: [
           'Built scalable eCommerce systems from scratch',
