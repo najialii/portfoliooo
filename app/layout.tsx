@@ -16,7 +16,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Naji Ali | Senior Full Stack Developer',
+  title: 'Naji Ali | Full Stack Developer',
   description: 'Specializing in high-performance eCommerce, B2B SaaS, and digital infrastructure for the MENA region.',
   keywords: ['Full Stack Developer', 'Saudi Startups', 'Next.js', 'Laravel', 'eCommerce Specialist'],
   viewport: 'width=device-width, initial-scale=1',
