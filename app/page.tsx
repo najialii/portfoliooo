@@ -2,196 +2,250 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { FiArrowUpRight, FiCode, FiLayers, FiGlobe, FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
+import { FiArrowUpRight, FiCode, FiLayers, FiGlobe, FiSmartphone, FiMail, FiMapPin, FiSun, FiMoon } from 'react-icons/fi'
 import { FaWhatsapp, FaLanguage } from 'react-icons/fa'
+import { useTheme } from './context/ThemeContext'
+import CursorFollower from './components/CursorFollower'
 
 const translations = {
   en: {
     nav: {
-      solutions: 'Solutions',
+      solutions: 'Projects',
       techStack: 'Tech Stack',
-      playground: 'Playground',
-      hireMe: 'Hire Me'
+      playground: 'The Lab',
+      hireMe: "Let's Talk"
     },
     hero: {
       location: 'Based in Riyadh & Addis Ababa',
-      title: 'Scale Your',
-      titleHighlight: 'Vision.',
-      subtitle: 'Specializing in high-performance eCommerce and B2B SaaS for the Middle Eastern market. I build the infrastructure that powers Saudi\'s next generation of digital leaders.',
-      downloadCV: 'Download CV'
+      title: 'Reliable Code,',
+      titleHighlight: 'Real Results.',
+      subtitle: "I’m a full-stack developer helping businesses in the MENA region build fast, scalable web and mobile apps. No agency fluff—just clean architecture, 99.9% uptime, and code that actually solves your problems.",
+      downloadCV: 'Get My Resume'
     },
     projects: {
-      title: 'Strategic Solutions',
+      title: 'Selected Work',
       minimoon: {
-        badge: 'Featured Case Study',
+        badge: 'Case Study',
         title: 'Minimoon eCommerce',
-        desc: 'Next.js + Strapi platform optimized for Saudi payment gateways and high-concurrency vendor management.'
+        desc: 'Built a robust Next.js platform that handles high traffic and integrates seamlessly with Saudi payment gateways like Tabby.'
       },
       b2b: {
-        title: 'B2B SaaS',
-        desc: 'Role-based distribution platforms for the dairy industry in Cairo & Riyadh.'
+        title: 'B2B Logistics SaaS',
+        desc: 'Developed a custom distribution system that streamlined supply chain workflows for dairy businesses in Cairo and Riyadh.'
       },
       mentorship: {
-        title: 'Mentorship Platform',
-        desc: 'Laravel-based platform with complex RBAC and automated scheduling for high-concurrency user interactions.'
+        title: 'Mentorship Portal',
+        desc: 'Engineered a high-concurrency Laravel backend for automated scheduling and secure user interactions.'
       },
       dairy: {
-        title: 'Dairy Distribution',
-        desc: 'Mobile-first eCommerce platform streamlining B2B workflows for field sales teams.'
+        title: 'Field Sales Tools',
+        desc: 'Created mobile-first solutions that help field sales teams track inventory and orders on the go.'
       }
     },
     tech: {
-      title: 'Built for Performance',
-      subtitle: 'Utilizing a modern stack to ensure 99.9% uptime and <1s load times.',
-      yearsExp: 'Years Exp.',
+      title: 'Tech That Works',
+      subtitle: 'I stick to a proven stack that ensures your site is fast, secure, and ready to grow without constant maintenance.',
+      yearsExp: 'Years in Tech',
       frontend: { title: 'Frontend', desc: 'React, Next.js, Tailwind' },
-      backend: { title: 'Backend', desc: 'Node, Laravel, Strapi' },
-      cloud: { title: 'Cloud', desc: 'AWS, Docker, CI/CD' },
-      mobile: { title: 'Mobile', desc: 'React Native' }
+      backend: { title: 'Backend', desc: 'Laravel, Node.js, Spring Boot' },
+      cloud: { title: 'Cloud & Ops', desc: 'AWS, Docker, CI/CD' },
+      mobile: { title: 'Mobile', desc: 'React Native' },
+      tools: { title: 'Tools & AI', desc: 'Git, GitHub, AI Agents, AI-Assisted Coding' }
     },
     experience: {
-      title: 'Career Journey',
+      title: 'My Journey',
       minimoon: {
         date: 'Dec 2023 - Nov 2025',
-        role: 'Full-Stack Developer',
-        company: 'Minimoon Co Ltd, Algeria (Remote)',
+        role: 'Full-Stack Software Engineer',
+        company: 'Minimoon (Remote)',
         points: [
-          'Engineered scalable eCommerce with Next.js + Strapi',
-          'Integrated secure payment gateways for MENA region',
-          'Managed AWS deployment pipelines (99.9% uptime)'
+          'Built scalable eCommerce systems from scratch',
+          'Handled payment gateway integrations for the MENA market',
+          'Maintained high-availability servers on AWS'
         ]
       },
       elmasa: {
         date: 'Jan 2022 - Aug 2024',
         role: 'Full-Stack Developer',
-        company: 'Elmassri Co Ltd, Egypt/Cairo (Remote)',
+        company: 'Elmassri Co (Remote)',
         points: [
-          'Built B2B dairy distribution platform with React.js',
-          'Mobile-first responsive design for field sales teams'
+          'Developed a B2B distribution platform for dairy supply chains',
+          'Designed mobile interfaces that improved field sales efficiency'
         ]
       },
       nafir: {
         date: 'Dec 2022 - May 2023',
-        role: 'Back-End Developer',
-        company: 'Nafir CO.LTD, Khartoum, Sudan (Remote)',
+        role: 'Backend Developer',
+        company: 'Nafir CO.LTD (Remote)',
         points: [
-          'Architected mentorship platform with Laravel + RBAC',
-          'Optimized database queries for high-concurrency'
+          'Architected a mentorship portal with custom permission levels',
+          'Optimized database performance to handle heavy user traffic'
         ]
       }
     },
     contact: {
-      title: 'Let\'s Build Together',
-      subtitle: 'Available for freelance projects and full-time opportunities across the Middle East.',
-      email: 'Email',
+      title: 'Let’s Build Something',
+      subtitle: 'I’m currently open to new freelance projects and long-term partnerships across the Middle East. Send me a message and let’s discuss your vision.',
+      email: 'Email Me',
       whatsapp: 'WhatsApp',
       location: 'Addis Ababa - Bole - Airport Road',
       languages: 'Arabic & English',
-      whatsappTooltip: 'Chat on WhatsApp'
+      whatsappTooltip: 'Send me a message'
     },
     footer: {
       rights: '© 2026 Naji Ali. All rights reserved.',
-      education: 'Hayyat University College (HUC) - IT Graduate 2022'
+      education: 'Hayyat University College (HUC) - Information Technology 2019-2022'
+    },
+    learning: {
+      title: 'Currently Learning',
+      subtitle: 'Expanding my skill set with new technologies',
+      springBoot: {
+        title: 'Java Spring Boot',
+        desc: 'Building enterprise-grade microservices and RESTful APIs'
+      }
+    },
+    hobby: {
+      title: 'Hobby Projects',
+      subtitle: 'Side projects I\'m currently building',
+      project: {
+        title: 'Safqa | Smart Bartering Platform',
+        subtitle: 'Exclusive to Saudi Arabia',
+        desc: 'A specialized bartering platform for the Saudi market enabling cashless economy through direct high-value item exchanges',
+        features: [
+          'Next.js + Laravel + MySQL hybrid stack',
+          'Smart valuation with internal credit system',
+          'Localized UI/UX for Saudi users'
+        ],
+        status: 'In Active Development'
+      }
     }
   },
   ar: {
     nav: {
-      solutions: 'الحلول',
+      solutions: 'أعمالي',
       techStack: 'التقنيات',
-      playground: 'ساحة التجربة',
-      hireMe: 'وظفني'
+      playground: 'المختبر',
+      hireMe: 'تواصل معي'
     },
     hero: {
-      location: 'مقيم في الرياض وأديس أبابا',
-      title: 'طور',
-      titleHighlight: 'رؤيتك.',
-      subtitle: 'متخصص في التجارة الإلكترونية عالية الأداء وحلول B2B SaaS لسوق الشرق الأوسط. أبني البنية التحتية التي تدعم الجيل القادم من القادة الرقميين في السعودية.',
+      location: 'مقري في الرياض وأديس أبابا',
+      title: 'برمجة عملية،',
+      titleHighlight: 'نتائج ملموسة.',
+      subtitle: 'مطور Full-Stack أساعد الشركات في المنطقة على بناء منصات ويب وتطبيقات سريعة ومستقرة. هدفي هو تقديم حلول برمجية نظيفة وقابلة للتطوير بعيداً عن تعقيدات الشركات الكبيرة.',
       downloadCV: 'تحميل السيرة الذاتية'
     },
     projects: {
-      title: 'الحلول الاستراتيجية',
+      title: 'أبرز المشاريع',
       minimoon: {
-        badge: 'مشروع مميز',
-        title: 'منصة ميني مون للتجارة الإلكترونية',
-        desc: 'منصة Next.js + Strapi محسّنة لبوابات الدفع السعودية وإدارة الموردين عالية التزامن.'
+        badge: 'مشروع مختار',
+        title: 'منصة ميني مون',
+        desc: 'بنيت منصة متكاملة بـ Next.js قادرة على التعامل مع ضغط الزوار وربطها ببوابات الدفع المحلية.'
       },
       b2b: {
-        title: 'حلول B2B SaaS',
-        desc: 'منصات توزيع قائمة على الأدوار لصناعة الألبان في القاهرة والرياض.'
+        title: 'أنظمة توزيع B2B',
+        desc: 'تطوير نظام خاص لسلاسل الإمداد ساهم في تنظيم عمليات التوزيع في الرياض والقاهرة.'
       },
       mentorship: {
-        title: 'منصة الإرشاد',
-        desc: 'منصة Laravel مع نظام RBAC معقد وجدولة تلقائية للتفاعلات عالية التزامن.'
+        title: 'منصة تدريبية',
+        desc: 'تصميم محرك خلفي بـ Laravel يدعم جدولة المواعيد وإدارة المستخدمين بكفاءة.'
       },
       dairy: {
-        title: 'توزيع الألبان',
-        desc: 'منصة تجارة إلكترونية متوافقة مع الجوال تبسط سير عمل B2B لفرق المبيعات الميدانية.'
+        title: 'أدوات المبيعات الميدانية',
+        desc: 'بناء تطبيقات جوال سهلت لفرق المبيعات تتبع الطلبات والمخزون في الميدان.'
       }
     },
     tech: {
-      title: 'مبني للأداء',
-      subtitle: 'استخدام مجموعة تقنيات حديثة لضمان توفر 99.9٪ وأوقات تحميل أقل من ثانية.',
-      yearsExp: 'سنوات خبرة',
+      title: 'التقنيات التي أستخدمها',
+      subtitle: 'أستخدم أدوات أثق بها لضمان أن يكون موقعك سريعاً وآمناً وسهل التحديث.',
+      yearsExp: 'سنوات الخبرة',
       frontend: { title: 'الواجهة الأمامية', desc: 'React, Next.js, Tailwind' },
-      backend: { title: 'الخادم', desc: 'Node, Laravel, Strapi' },
+      backend: { title: 'الأنظمة الخلفية', desc: 'Laravel, Node.js, Spring Boot' },
       cloud: { title: 'السحابة', desc: 'AWS, Docker, CI/CD' },
-      mobile: { title: 'الجوال', desc: 'React Native' }
+      mobile: { title: 'تطبيقات الجوال', desc: 'React Native' },
+      tools: { title: 'الأدوات والذكاء الاصطناعي', desc: 'Git, GitHub, وكلاء الذكاء الاصطناعي, البرمجة بمساعدة AI' }
     },
     experience: {
-      title: 'رحلة المسيرة المهنية',
+      title: 'خبرتي المهنية',
       minimoon: {
         date: 'ديسمبر 2023 - نوفمبر 2025',
         role: 'مطور Full-Stack',
-        company: 'شركة ميني مون، الجزائر (عن بعد)',
+        company: 'شركة ميني مون (عن بعد)',
         points: [
-          'هندسة حلول تجارة إلكترونية قابلة للتطوير باستخدام Next.js + Strapi',
-          'دمج بوابات دفع آمنة لمنطقة الشرق الأوسط وشمال أفريقيا',
-          'إدارة خطوط نشر AWS (توفر 99.9٪)'
+          'بناء أنظمة تجارة إلكترونية متكاملة من الصفر',
+          'ربط بوابات الدفع المحلية',
+          'إدارة السيرفرات لضمان استمرارية الخدمة'
         ]
       },
       elmasa: {
         date: 'يناير 2022 - أغسطس 2024',
         role: 'مطور Full-Stack',
-        company: 'شركة المصري، مصر/القاهرة (عن بعد)',
+        company: 'شركة المصري (عن بعد)',
         points: [
-          'بناء منصة توزيع ألبان B2B باستخدام React.js',
-          'تصميم متجاوب يركز على الجوال لفرق المبيعات الميدانية'
+          'تطوير نظام توزيع لقطاع المنتجات الغذائية',
+          'تصميم واجهات سهلة للاستخدام الميداني'
         ]
       },
       nafir: {
         date: 'ديسمبر 2022 - مايو 2023',
         role: 'مطور Back-End',
-        company: 'شركة نفير، الخرطوم، السودان (عن بعد)',
+        company: 'شركة نفير (عن بعد)',
         points: [
-          'تصميم منصة إرشاد باستخدام Laravel + RBAC',
-          'تحسين استعلامات قاعدة البيانات للتزامن العالي'
+          'بناء بوابة إرشاد مع نظام صلاحيات مخصص',
+          'تحسين سرعة قواعد البيانات للتعامل مع الضغط'
         ]
       }
     },
     contact: {
-      title: 'لنبني معاً',
-      subtitle: 'متاح لمشاريع العمل الحر والفرص بدوام كامل في جميع أنحاء الشرق الأوسط.',
-      email: 'البريد الإلكتروني',
+      title: 'لنبدأ العمل سوياً',
+      subtitle: 'أستقبل حالياً طلبات للمشاريع الجديدة. إذا كان لديك فكرة وتريد شريكاً تقنياً ينفذها لك، تواصل معي.',
+      email: 'راسلني بالبريد',
       whatsapp: 'واتساب',
       location: 'أديس أبابا - بولي - طريق المطار',
       languages: 'العربية والإنجليزية',
-      whatsappTooltip: 'تحدث على واتساب'
+      whatsappTooltip: 'تواصل معي مباشرة'
     },
     footer: {
       rights: '© 2026 ناجي علي. جميع الحقوق محفوظة.',
-      education: 'كلية حياة الجامعية (HUC) - خريج تقنية المعلومات 2022'
+      education: 'كلية حياة الجامعية (HUC) - تقنية المعلومات 2019-2022'
+    },
+    learning: {
+      title: 'أتعلم حالياً',
+      subtitle: 'توسيع مهاراتي بتقنيات جديدة',
+      springBoot: {
+        title: 'Java Spring Boot',
+        desc: 'بناء خدمات مصغرة على مستوى المؤسسات وواجهات برمجة RESTful'
+      }
+    },
+    hobby: {
+      title: 'مشاريع هواية',
+      subtitle: 'مشاريع جانبية أعمل عليها حالياً',
+      project: {
+        title: 'صفقة | منصة المقايضة الذكية',
+        subtitle: 'حصرياً للسوق السعودي',
+        desc: 'منصة مقايضة متخصصة للسوق السعودي تتيح اقتصاد بدون نقد من خلال تبادل السلع عالية القيمة مباشرة',
+        features: [
+          'Next.js + Laravel + MySQL تقنيات متكاملة',
+          'نظام تقييم ذكي مع نظام ائتمان داخلي',
+          'واجهة مخصصة للمستخدمين السعوديين'
+        ],
+        status: 'قيد التطوير النشط'
+      }
     }
   }
-}
+}  
 
+
+ 
 export default function SaudiStartupPortfolio() {
   const [lang, setLang] = useState<'en' | 'ar'>('en')
+  const { theme, toggleTheme } = useTheme()
   const t = translations[lang]
   const isRTL = lang === 'ar'
 
   return (
-    <div className={`min-h-screen bg-[#0a0c10] text-slate-100 selection:bg-emerald-500/30 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3 z-[100]">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0a0c10] text-slate-100' : 'bg-white text-slate-900'} selection:bg-emerald-500/30 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <CursorFollower />
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3 z-[100] transition-all duration-300 hover:shadow-lg">
         <div className="flex justify-between items-center">
           <span className="font-bold tracking-tighter text-xl">NAJI.</span>
           <div className="flex items-center gap-4">
@@ -211,6 +265,19 @@ export default function SaudiStartupPortfolio() {
             >
               <FiCode className="text-lg text-purple-400" />
             </a>
+            <button 
+              onClick={toggleTheme}
+              className={`relative w-14 h-7 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-slate-700' : 'bg-emerald-500'}`}
+              title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            >
+              <motion.div
+                className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'} shadow-lg`}
+                animate={{ x: theme === 'dark' ? 0 : 28 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              >
+                {theme === 'dark' ? <FiMoon className="text-xs text-slate-400" /> : <FiSun className="text-xs text-yellow-500" />}
+              </motion.div>
+            </button>
             <button 
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
               className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 transition-all flex items-center gap-2"
@@ -275,18 +342,19 @@ export default function SaudiStartupPortfolio() {
             href="https://minimoon.com" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="md:col-span-8 group relative bg-slate-900/50 border border-white/5 rounded-3xl p-8 hover:border-emerald-500/50 transition-all overflow-hidden cursor-pointer"
+            className={`md:col-span-8 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-emerald-500 hover:shadow-xl transition-all overflow-hidden cursor-pointer`}
           >
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <span className="text-xs font-mono text-emerald-400 uppercase">{t.projects.minimoon.badge}</span>
-              <h3 className="text-3xl font-bold mt-2 mb-4">{t.projects.minimoon.title}</h3>
-              <p className="text-slate-400 max-w-md">{t.projects.minimoon.desc}</p>
-              <div className="flex gap-3 mt-6">
-                {['Next.js', 'AWS', 'Redis'].map(t => <span key={t} className="px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/5">{t}</span>)}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-mono text-emerald-400 uppercase">{t.projects.minimoon.badge}</span>
+                <FiArrowUpRight className="text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </div>
-            </div>
-            <div className="absolute top-8 right-8 text-2xl text-slate-700 group-hover:text-emerald-400 transition-colors">
-              <FiArrowUpRight />
+              <h3 className={`text-3xl font-bold mt-2 mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.minimoon.title}</h3>
+              <p className={`max-w-md ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.minimoon.desc}</p>
+              <div className="flex gap-3 mt-6">
+                {['Next.js', 'AWS', 'Redis'].map(t => <span key={t} className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-300 border-white/5' : 'bg-slate-200 text-slate-700 border-slate-300'} rounded-full text-xs border`}>{t}</span>)}
+              </div>
             </div>
           </motion.a>
 
@@ -295,11 +363,11 @@ export default function SaudiStartupPortfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="md:col-span-4 bg-slate-900/50 border border-white/5 rounded-3xl p-8 hover:border-blue-500/50 transition-all"
+            className={`md:col-span-4 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-blue-500/50 transition-all`}
           >
             <FiLayers className="text-3xl text-blue-400 mb-6" />
-            <h3 className="text-xl font-bold mb-2">{t.projects.b2b.title}</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">{t.projects.b2b.desc}</p>
+            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.b2b.title}</h3>
+            <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.b2b.desc}</p>
           </motion.div>
 
           <motion.a 
@@ -310,13 +378,19 @@ export default function SaudiStartupPortfolio() {
             href="https://portal.nafir.net/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="md:col-span-6 bg-slate-900/50 border border-white/5 rounded-3xl p-8 hover:border-purple-500/50 transition-all cursor-pointer group"
+            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-purple-500 hover:shadow-xl transition-all cursor-pointer group`}
           >
-            <FiCode className="text-3xl text-purple-400 mb-6 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold mb-2">{t.projects.mentorship.title}</h3>
-            <p className="text-sm text-slate-400 leading-relaxed mb-4">{t.projects.mentorship.desc}</p>
-            <div className="flex gap-2">
-              {['Laravel', 'MySQL', 'RBAC'].map(t => <span key={t} className="px-2 py-1 bg-white/5 rounded-full text-xs text-slate-400">{t}</span>)}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-6">
+                <FiCode className="text-3xl text-purple-400 group-hover:scale-110 transition-transform" />
+                <FiArrowUpRight className="text-purple-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.mentorship.title}</h3>
+              <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.mentorship.desc}</p>
+              <div className="flex gap-2">
+                {['Laravel', 'MySQL', 'RBAC'].map(t => <span key={t} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{t}</span>)}
+              </div>
             </div>
           </motion.a>
 
@@ -325,50 +399,53 @@ export default function SaudiStartupPortfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="md:col-span-6 bg-slate-900/50 border border-white/5 rounded-3xl p-8 hover:border-cyan-500/50 transition-all"
+            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-cyan-500/50 transition-all`}
           >
             <FiGlobe className="text-3xl text-cyan-400 mb-6" />
-            <h3 className="text-xl font-bold mb-2">{t.projects.dairy.title}</h3>
-            <p className="text-sm text-slate-400 leading-relaxed mb-4">{t.projects.dairy.desc}</p>
+            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.dairy.title}</h3>
+            <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.dairy.desc}</p>
             <div className="flex gap-2">
-              {['React.js', 'Node.js', 'MongoDB'].map(t => <span key={t} className="px-2 py-1 bg-white/5 rounded-full text-xs text-slate-400">{t}</span>)}
+              {['React.js', 'Node.js', 'MongoDB'].map(t => <span key={t} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{t}</span>)}
             </div>
           </motion.div>
         </div>
       </section>
 
-      <section id="tech" className="py-24 bg-white/[0.02] border-y border-white/5">
+      <section id="tech" className={`py-24 ${theme === 'dark' ? 'bg-white/[0.02] border-white/5' : 'bg-slate-50 border-slate-200'} border-y`}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col md:flex-row justify-between items-end mb-16"
+            className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6"
           >
-            <div>
-              <h2 className="text-4xl font-bold mb-4">{t.tech.title}</h2>
-              <p className="text-slate-400" dangerouslySetInnerHTML={{ __html: t.tech.subtitle }}></p>
+            <div className="flex-1">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.tech.title}</h2>
+              <p className={`${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} text-base md:text-lg`} dangerouslySetInnerHTML={{ __html: t.tech.subtitle }}></p>
             </div>
-            <div className="mt-6 md:mt-0 flex gap-4">
-               <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-center">
+            <div className="flex gap-4">
+               <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-center min-w-[80px]">
                   <span className="block text-2xl font-bold text-emerald-400">3+</span>
-                  <span className="text-[10px] text-slate-500 uppercase">{t.tech.yearsExp}</span>
+                  <span className="text-[10px] text-slate-500 uppercase whitespace-nowrap">{t.tech.yearsExp}</span>
                </div>
             </div>
           </motion.div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              <TechItem icon={<FiCode />} title={t.tech.frontend.title} desc={t.tech.frontend.desc} />
+              <TechItem icon={<FiCode />} title={t.tech.frontend.title} desc={t.tech.frontend.desc} theme={theme} />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-              <TechItem icon={<FiLayers />} title={t.tech.backend.title} desc={t.tech.backend.desc} />
+              <TechItem icon={<FiLayers />} title={t.tech.backend.title} desc={t.tech.backend.desc} theme={theme} />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
-              <TechItem icon={<FiGlobe />} title={t.tech.cloud.title} desc={t.tech.cloud.desc} />
+              <TechItem icon={<FiGlobe />} title={t.tech.cloud.title} desc={t.tech.cloud.desc} theme={theme} />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}>
-              <TechItem icon={<FiSmartphone />} title={t.tech.mobile.title} desc={t.tech.mobile.desc} />
+              <TechItem icon={<FiSmartphone />} title={t.tech.mobile.title} desc={t.tech.mobile.desc} theme={theme} />
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.5 }}>
+              <TechItem icon={<FiCode />} title={t.tech.tools.title} desc={t.tech.tools.desc} theme={theme} />
             </motion.div>
           </div>
         </div>
@@ -430,28 +507,103 @@ export default function SaudiStartupPortfolio() {
         </div>
       </section>
 
-      <section id="contact" className="py-32 px-6 bg-gradient-to-b from-transparent to-emerald-500/5">
+      <section className={`py-20 px-6 ${theme === 'dark' ? 'bg-slate-900/30' : 'bg-slate-50'}`}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`text-3xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.learning.title}</h2>
+              <p className={`${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} mb-8`}>{t.learning.subtitle}</p>
+              
+              <div className={`${theme === 'dark' ? 'bg-slate-800/50 border-white/5' : 'bg-white border-slate-200'} border rounded-2xl p-6 hover:shadow-lg transition-all`}>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-orange-500/10 rounded-lg">
+                    <FiCode className="text-2xl text-orange-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.learning.springBoot.title}</h3>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.learning.springBoot.desc}</p>
+                    <div className="mt-4 flex gap-2">
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>Java</span>
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>Spring Boot</span>
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>Microservices</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`text-3xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.hobby.title}</h2>
+              <p className={`${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} mb-8`}>{t.hobby.subtitle}</p>
+              
+              <div className={`${theme === 'dark' ? 'bg-slate-800/50 border-white/5' : 'bg-white border-slate-200'} border rounded-2xl p-6 hover:shadow-lg transition-all`}>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-purple-500/10 rounded-lg">
+                    <FiLayers className="text-2xl text-purple-500" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.hobby.project.title}</h3>
+                    </div>
+                    <p className={`text-xs ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'} mb-3 font-medium`}>{t.hobby.project.subtitle}</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} mb-4`}>{t.hobby.project.desc}</p>
+                    
+                    <div className="space-y-2 mb-4">
+                      {t.hobby.project.features.map((feature: string, index: number) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <span className="text-purple-500 mt-1">•</span>
+                          <span className={`text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-2 flex-wrap">
+                      <span className={`inline-flex items-center gap-2 px-3 py-1 ${theme === 'dark' ? 'bg-purple-500/10 text-purple-400' : 'bg-purple-100 text-purple-700'} rounded-full text-xs font-medium`}>
+                        <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
+                        {t.hobby.project.status}
+                      </span>
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>Next.js</span>
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>Laravel</span>
+                      <span className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-slate-700'} rounded-full text-xs`}>MySQL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className={`py-20 md:py-32 px-6 ${theme === 'dark' ? 'bg-gradient-to-b from-transparent to-emerald-500/5' : 'bg-gradient-to-b from-transparent to-emerald-50'}`}>
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl font-bold mb-6">{t.contact.title}</h2>
-            <p className="text-slate-400 text-lg mb-10">
+            <h2 className={`text-3xl md:text-5xl font-bold mb-4 md:mb-6 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.contact.title}</h2>
+            <p className={`${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} text-base md:text-lg mb-8 md:mb-10 px-4`}>
               {t.contact.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-row gap-4 justify-center items-center">
               <motion.a 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 href="mailto:Najialii249@gmail.com"
-                className="w-16 h-16 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center"
+                className="w-14 h-14 md:w-16 md:h-16 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center shadow-lg"
                 title="Email: Najialii249@gmail.com"
               >
-                <FiMail className="text-2xl" />
+                <FiMail className="text-xl md:text-2xl text-white" />
               </motion.a>
               <motion.a 
                 initial={{ opacity: 0, y: 20 }}
@@ -461,10 +613,10 @@ export default function SaudiStartupPortfolio() {
                 href="https://wa.me/251933955241"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center"
+                className="w-14 h-14 md:w-16 md:h-16 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all hover:scale-110 flex items-center justify-center shadow-lg"
                 title="WhatsApp: +251 93 395 5241"
               >
-                <FaWhatsapp className="text-2xl" />
+                <FaWhatsapp className="text-xl md:text-2xl text-white" />
               </motion.a>
             </div>
             <motion.div 
@@ -472,14 +624,14 @@ export default function SaudiStartupPortfolio() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="mt-8 flex items-center justify-center gap-6 text-sm text-slate-500 flex-wrap"
+              className={`mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs md:text-sm ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}
             >
               <div className="flex items-center gap-2">
-                <FiMapPin className="text-emerald-400" />
-                <span>{t.contact.location}</span>
+                <FiMapPin className="text-emerald-400 flex-shrink-0" />
+                <span className="text-center sm:text-left">{t.contact.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <FaLanguage className="text-emerald-400" />
+                <FaLanguage className="text-emerald-400 flex-shrink-0" />
                 <span>{t.contact.languages}</span>
               </div>
             </motion.div>
@@ -510,12 +662,12 @@ export default function SaudiStartupPortfolio() {
   )
 }
 
-function TechItem({ icon, title, desc }: { icon: any; title: string; desc: string }) {
+function TechItem({ icon, title, desc, theme }: { icon: any; title: string; desc: string; theme: string }) {
   return (
-    <div className="p-6 bg-slate-900/40 border border-white/5 rounded-2xl hover:bg-slate-800/60 transition-colors">
+    <div className={`p-6 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5 hover:bg-slate-800/60' : 'bg-white border-slate-200 hover:bg-slate-50'} border rounded-2xl transition-colors`}>
       <div className="text-emerald-400 mb-4 text-xl">{icon}</div>
-      <h4 className="font-bold mb-1">{title}</h4>
-      <p className="text-xs text-slate-500">{desc}</p>
+      <h4 className={`font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{title}</h4>
+      <p className={`text-xs ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>{desc}</p>
     </div>
   )
 }

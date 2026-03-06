@@ -1,8 +1,9 @@
 'use client'
-import { useState, useEffect, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiCode, FiPlay, FiCopy, FiCheck, FiHome, FiCpu, FiGlobe, FiTruck, FiServer, FiLayers } from 'react-icons/fi'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { FiCode, FiCopy, FiCheck, FiHome, FiServer, FiLayers, FiGlobe, FiPlay } from 'react-icons/fi'
 import Link from 'next/link'
+import { useTheme } from '../context/ThemeContext'
 
 const codeExamples = {
   laravel: {
@@ -105,29 +106,9 @@ export const DesignSystemProvider = ({ brand, locale, children }: Props) => {
 export default function CodePlayground() {
   const [selectedExample, setSelectedExample] = useState<keyof typeof codeExamples>('laravel')
   const [copied, setCopied] = useState(false)
-  const [typedCode, setTypedCode] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
+  const { theme } = useTheme()
 
   const currentExample = codeExamples[selectedExample]
-
-  useEffect(() => {
-    setTypedCode('')
-    setIsTyping(true)
-    let index = 0
-    const code = currentExample.code
-
-    const interval = setInterval(() => {
-      if (index < code.length) {
-        setTypedCode(code.slice(0, index + 1))
-        index++
-      } else {
-        setIsTyping(false)
-        clearInterval(interval)
-      }
-    }, 10)
-
-    return () => clearInterval(interval)
-  }, [selectedExample, currentExample.code])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentExample.code)
@@ -136,14 +117,14 @@ export default function CodePlayground() {
   }
 
   return (
-    <div className="min-h-screen bg-[#06080a] text-slate-100 font-sans selection:bg-emerald-500/30">
-      <nav className="fixed top-0 w-full bg-[#0a0c10]/80 backdrop-blur-xl border-b border-white/5 z-50">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#06080a] text-slate-100' : 'bg-white text-slate-900'} font-sans selection:bg-emerald-500/30`}>
+      <nav className={`fixed top-0 w-full ${theme === 'dark' ? 'bg-[#0a0c10]/80 border-white/5' : 'bg-white/80 border-slate-200'} backdrop-blur-xl border-b z-50`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 group transition-all">
-            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-emerald-500/10 group-hover:text-emerald-400">
+            <div className={`p-2 ${theme === 'dark' ? 'bg-white/5' : 'bg-slate-100'} rounded-lg group-hover:bg-emerald-500/10 group-hover:text-emerald-400`}>
               <FiHome />
             </div>
-            <span className="font-medium text-sm text-slate-400 group-hover:text-white">Exit Playground</span>
+            <span className={`font-medium text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} group-hover:text-emerald-400`}>Exit Playground</span>
           </Link>
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -184,7 +165,7 @@ export default function CodePlayground() {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          <motion.div layout className="lg:col-span-8 bg-[#0d1117] rounded-3xl border border-white/5 shadow-2xl overflow-hidden">
+          <motion.div layout className={`lg:col-span-8 ${theme === 'dark' ? 'bg-[#0d1117] border-white/5' : 'bg-slate-50 border-slate-200'} rounded-3xl border shadow-2xl overflow-hidden`}>
             <div className="bg-white/5 px-6 py-4 flex justify-between items-center border-b border-white/5">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-slate-700" />
@@ -201,9 +182,8 @@ export default function CodePlayground() {
               </button>
             </div>
             <div className="p-8 font-mono text-[13px] leading-relaxed min-h-[440px]">
-              <pre className="text-slate-300 whitespace-pre-wrap">
-                <code>{typedCode}</code>
-                {isTyping && <span className="inline-block w-2 h-4 bg-emerald-500 ml-1 animate-pulse align-middle" />}
+              <pre className={`${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'} whitespace-pre-wrap`}>
+                <code>{currentExample.code}</code>
               </pre>
             </div>
           </motion.div>

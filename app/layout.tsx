@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Readex_Pro, Inter } from 'next/font/google'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
+import { ThemeProvider } from './context/ThemeContext'
 import './globals.css'
 
 const readex = Readex_Pro({ 
@@ -43,11 +44,12 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${readex.variable} ${inter.variable} font-sans bg-[#0a0c10] antialiased`}>
-        <div className="fixed inset-0 z-[-1] opacity-20 pointer-events-none bg-[url('/noise.png')] bg-repeat" />
-        
-        {children}
-        <Analytics />
+      <body className={`${readex.variable} ${inter.variable} font-sans antialiased`}>
+        <ThemeProvider>
+          <div className="fixed inset-0 z-[-1] opacity-20 pointer-events-none bg-[url('/noise.png')] bg-repeat" />
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
