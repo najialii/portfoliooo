@@ -5,8 +5,17 @@ import { motion } from 'framer-motion'
 export default function CursorFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
@@ -26,8 +35,12 @@ export default function CursorFollower() {
     return () => {
       window.removeEventListener('mousemove', updateMousePosition)
       window.removeEventListener('mouseover', handleMouseOver)
+      window.removeEventListener('resize', checkMobile)
     }
   }, [])
+
+  // Don't render on mobile devices
+  if (isMobile) return null
 
   return (
     <>
