@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
+import Image from 'next/image'
 import { FiArrowUpRight, FiCode, FiLayers, FiGlobe, FiSmartphone, FiMail, FiMapPin, FiSun, FiMoon } from 'react-icons/fi'
 import { FaWhatsapp, FaLanguage } from 'react-icons/fa'
 import { useTheme } from './context/ThemeContext'
@@ -28,6 +28,14 @@ const translations = {
         badge: 'Case Study',
         title: 'Minimoon eCommerce',
         desc: 'Built a robust Next.js platform that handles high traffic and integrates seamlessly with Saudi payment gateways like Tabby.'
+      },
+      futurehome: {
+        title: 'Future Home Real Estate',
+        desc: 'Developed a comprehensive real estate platform for property listings and management in Saudi Arabia.'
+      },
+      wesaaltech: {
+        title: 'Wesaal Tech Platform',
+        desc: 'Built a modern tech solutions platform with secure authentication and user management systems.'
       },
       b2b: {
         title: 'B2B Logistics SaaS',
@@ -140,6 +148,14 @@ const translations = {
         badge: 'مشروع مختار',
         title: 'منصة ميني مون',
         desc: 'بنيت منصة متكاملة بـ Next.js قادرة على التعامل مع ضغط الزوار وربطها ببوابات الدفع المحلية.'
+      },
+      futurehome: {
+        title: 'فيوتشر هوم العقارية',
+        desc: 'تطوير منصة عقارية شاملة لعرض وإدارة العقارات في السعودية.'
+      },
+      wesaaltech: {
+        title: 'منصة وصال تك',
+        desc: 'بناء منصة حلول تقنية حديثة مع نظام مصادقة آمن وإدارة مستخدمين.'
       },
       b2b: {
         title: 'أنظمة توزيع B2B',
@@ -342,10 +358,18 @@ export default function SaudiStartupPortfolio() {
             href="https://minimoon.com" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className={`md:col-span-8 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-emerald-500 hover:shadow-xl transition-all overflow-hidden cursor-pointer`}
+            className={`md:col-span-8 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-emerald-500 hover:shadow-xl transition-all cursor-pointer`}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="relative z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+            <div className="relative h-48 w-full">
+              <Image
+                src="/projects/minimnoon.png"
+                alt="Minimoon eCommerce"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative z-10 p-8">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs font-mono text-emerald-400 uppercase">{t.projects.minimoon.badge}</span>
                 <FiArrowUpRight className="text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -358,12 +382,76 @@ export default function SaudiStartupPortfolio() {
             </div>
           </motion.a>
 
-          <motion.div 
+          <motion.a 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`md:col-span-4 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-blue-500/50 transition-all`}
+            href="https://futurehomessa.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={`md:col-span-4 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer`}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+            <div className="relative h-40 w-full">
+              <Image
+                src="/projects/futuerhomes.png"
+                alt="Future Home Real Estate"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative z-10 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <FiGlobe className="text-2xl text-orange-400" />
+                <FiArrowUpRight className="text-orange-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.futurehome.title}</h3>
+              <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.futurehome.desc}</p>
+              <div className="flex gap-2 mt-4 flex-wrap">
+                {['Next.js', 'Real Estate'].map(tag => <span key={tag} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{tag}</span>)}
+              </div>
+            </div>
+          </motion.a>
+
+          <motion.a 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            href="https://wesaaltech.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={`md:col-span-6 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-cyan-500 hover:shadow-xl transition-all cursor-pointer`}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+            <div className="relative h-48 w-full">
+              <Image
+                src="/projects/wesaaltech.png"
+                alt="Wesaal Tech Platform"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative z-10 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <FiLayers className="text-2xl text-cyan-400" />
+                <FiArrowUpRight className="text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.wesaaltech.title}</h3>
+              <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.wesaaltech.desc}</p>
+              <div className="flex gap-2 flex-wrap">
+                {['Laravel', 'Auth', 'Dashboard'].map(tag => <span key={tag} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{tag}</span>)}
+              </div>
+            </div>
+          </motion.a>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-blue-500/50 transition-all`}
           >
             <FiLayers className="text-3xl text-blue-400 mb-6" />
             <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.b2b.title}</h3>
@@ -374,7 +462,7 @@ export default function SaudiStartupPortfolio() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.5 }}
             href="https://portal.nafir.net/" 
             target="_blank" 
             rel="noopener noreferrer" 
@@ -398,10 +486,10 @@ export default function SaudiStartupPortfolio() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.6 }}
             className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-cyan-500/50 transition-all`}
           >
-            <FiGlobe className="text-3xl text-cyan-400 mb-6" />
+            <FiSmartphone className="text-3xl text-cyan-400 mb-6" />
             <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.dairy.title}</h3>
             <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.dairy.desc}</p>
             <div className="flex gap-2">
