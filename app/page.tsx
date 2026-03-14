@@ -31,7 +31,7 @@ const translations = {
       },
       futurehome: {
         title: 'Future Home Real Estate',
-        desc: 'Developed a comprehensive real estate platform for property listings and management in Saudi Arabia.'
+        desc: 'Developed a comprehensive real estate platform with admin dashboard for property listings and management in Saudi Arabia.'
       },
       wesaaltech: {
         title: 'Wesaal Tech Platform',
@@ -387,7 +387,7 @@ export default function SaudiStartupPortfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            href="https://futurehomessa.com" 
+            href="http://109.199.111.103/admin" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={`md:col-span-4 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer`}
@@ -395,8 +395,8 @@ export default function SaudiStartupPortfolio() {
             <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
             <div className="relative h-40 w-full">
               <Image
-                src="/projects/futuerhomes.png"
-                alt="Future Home Real Estate"
+                src="/projects/futuerhomedashboard.png"
+                alt="Future Home Real Estate Dashboard"
                 fill
                 className="object-cover"
               />
