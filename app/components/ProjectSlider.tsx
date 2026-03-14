@@ -1,84 +1,80 @@
 'use client'
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { motion } from 'framer-motion'
 
-interface ProjectSliderProps {
-  images: string[]
-  projectName: string
+interface InfiniteSliderProps {
+  images: { src: string; alt: string; link?: string }[]
   theme: string
 }
 
-export default function ProjectSlider({ images, projectName, theme }: ProjectSliderProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export default function InfiniteSlider({ images, theme }: InfiniteSliderProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
 
-  const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length)
-  }
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer) return
 
-  const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
+    let scrollAmount = 0
+    const scrollSpeed = 0.5
 
-  if (!images || images.length === 0) return null
+    const scroll = () => {
+      scrollAmount += scrollSpeed
+      if (scrollContainer) {
+        scrollContainer.scrollLeft = scrollAmount
+        
+        // Reset when reaching halfway (since we duplicate items)
+        if (scrollAmount >= scrollContainer.scrollWidth / 2) {
+          scrollAmount = 0
+        }
+      }
+    }
+
+    const intervalId = setInterval(scroll, 20)
+
+    return () => clearInterval(intervalId)
+  }, [])
+
+  // Duplicate images for infinite effect
+  const duplicatedImages = [...images, ...images]
 
   return (
-    <div className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden group">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="relative w-full h-full"
-        >
-          <Image
-            src={images[currentIndex]}
-            alt={`${projectName} screenshot ${currentIndex + 1}`}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            className={`absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full ${
-              theme === 'dark' ? 'bg-black/50 hover:bg-black/70' : 'bg-white/50 hover:bg-white/70'
-            } backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity`}
+    <div className="w-full overflow-hidden py-8">
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-hidden"
+        style={{ scrollBehavior: 'auto' }}
+      >
+        {duplicatedImages.map((image, index) => (
+          <motion.div
+            key={index}
+            className={`flex-shrink-0 w-[300px] md:w-[400px] h-[200px] md:h-[250px] rounded-2xl overflow-hidden ${
+              theme === 'dark' ? 'bg-slate-800/50 border-white/5' : 'bg-slate-100 border-slate-200'
+            } border hover:scale-105 transition-transform cursor-pointer group`}
+            whileHover={{ scale: 1.05 }}
           >
-            <FiChevronLeft className="text-xl" />
-          </button>
-          <button
-            onClick={next}
-            className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full ${
-              theme === 'dark' ? 'bg-black/50 hover:bg-black/70' : 'bg-white/50 hover:bg-white/70'
-            } backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity`}
-          >
-            <FiChevronRight className="text-xl" />
-          </button>
-
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentIndex
-                    ? 'bg-emerald-400 w-6'
-                    : theme === 'dark'
-                    ? 'bg-white/30 hover:bg-white/50'
-                    : 'bg-black/30 hover:bg-black/50'
-                }`}
-              />
-            ))}
-          </div>
-        </>
-      )}
+            {image.link ? (
+              <a href={image.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full relative">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover group-hover:opacity-90 transition-opacity"
+                />
+              </a>
+            ) : (
+              <div className="w-full h-full relative">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }

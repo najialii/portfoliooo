@@ -6,6 +6,7 @@ import { FiArrowUpRight, FiCode, FiLayers, FiGlobe, FiSmartphone, FiMail, FiMapP
 import { FaWhatsapp, FaLanguage } from 'react-icons/fa'
 import { useTheme } from './context/ThemeContext'
 import CursorFollower from './components/CursorFollower'
+import ProjectShowcase from './components/ProjectShowcase'
 
 const translations = {
   en: {
@@ -31,7 +32,7 @@ const translations = {
       },
       futurehome: {
         title: 'Future Home Real Estate',
-        desc: 'Developed a comprehensive real estate platform with admin dashboard for property listings and management in Saudi Arabia.'
+        desc: 'Developed a comprehensive real estate platform with custom CMS dashboard for property listings and content management in Saudi Arabia.'
       },
       wesaaltech: {
         title: 'Wesaal Tech Platform',
@@ -151,7 +152,7 @@ const translations = {
       },
       futurehome: {
         title: 'فيوتشر هوم العقارية',
-        desc: 'تطوير منصة عقارية شاملة لعرض وإدارة العقارات في السعودية.'
+        desc: 'تطوير منصة عقارية شاملة مع لوحة تحكم CMS مخصصة لإدارة العقارات والمحتوى في السعودية.'
       },
       wesaaltech: {
         title: 'منصة وصال تك',
@@ -345,158 +346,51 @@ export default function SaudiStartupPortfolio() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-12"
+          className="text-3xl font-bold mb-12 text-center"
         >
           {t.projects.title}
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <motion.a 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            href="https://minimoon.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={`md:col-span-8 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-emerald-500 hover:shadow-xl transition-all cursor-pointer`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-            <div className="relative h-48 w-full">
-              <Image
-                src="/projects/minimnoon.png"
-                alt="Minimoon eCommerce"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative z-10 p-8">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono text-emerald-400 uppercase">{t.projects.minimoon.badge}</span>
-                <FiArrowUpRight className="text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-              <h3 className={`text-3xl font-bold mt-2 mb-4 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.minimoon.title}</h3>
-              <p className={`max-w-md ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.minimoon.desc}</p>
-              <div className="flex gap-3 mt-6">
-                {['Next.js', 'AWS', 'Redis'].map(t => <span key={t} className={`px-3 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-300 border-white/5' : 'bg-slate-200 text-slate-700 border-slate-300'} rounded-full text-xs border`}>{t}</span>)}
-              </div>
-            </div>
-          </motion.a>
 
-          <motion.a 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            href="http://109.199.111.103/admin" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={`md:col-span-4 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-            <div className="relative h-40 w-full">
-              <Image
-                src="/projects/futuerhomedashboard.png"
-                alt="Future Home Real Estate Dashboard"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative z-10 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <FiGlobe className="text-2xl text-orange-400" />
-                <FiArrowUpRight className="text-orange-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.futurehome.title}</h3>
-              <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.futurehome.desc}</p>
-              <div className="flex gap-2 mt-4 flex-wrap">
-                {['Next.js', 'Real Estate'].map(tag => <span key={tag} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{tag}</span>)}
-              </div>
-            </div>
-          </motion.a>
-
-          <motion.a 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            href="https://wesaaltech.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={`md:col-span-6 group relative ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl overflow-hidden hover:border-cyan-500 hover:shadow-xl transition-all cursor-pointer`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-            <div className="relative h-48 w-full">
-              <Image
-                src="/projects/wesaaltech.png"
-                alt="Wesaal Tech Platform"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative z-10 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <FiLayers className="text-2xl text-cyan-400" />
-                <FiArrowUpRight className="text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.wesaaltech.title}</h3>
-              <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.wesaaltech.desc}</p>
-              <div className="flex gap-2 flex-wrap">
-                {['Laravel', 'Auth', 'Dashboard'].map(tag => <span key={tag} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{tag}</span>)}
-              </div>
-            </div>
-          </motion.a>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-blue-500/50 transition-all`}
-          >
-            <FiLayers className="text-3xl text-blue-400 mb-6" />
-            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.b2b.title}</h3>
-            <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.b2b.desc}</p>
-          </motion.div>
-
-          <motion.a 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            href="https://portal.nafir.net/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-purple-500 hover:shadow-xl transition-all cursor-pointer group`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-6">
-                <FiCode className="text-3xl text-purple-400 group-hover:scale-110 transition-transform" />
-                <FiArrowUpRight className="text-purple-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-              <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.mentorship.title}</h3>
-              <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.mentorship.desc}</p>
-              <div className="flex gap-2">
-                {['Laravel', 'MySQL', 'RBAC'].map(t => <span key={t} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{t}</span>)}
-              </div>
-            </div>
-          </motion.a>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6 }}
-            className={`md:col-span-6 ${theme === 'dark' ? 'bg-slate-900/50 border-white/5' : 'bg-slate-50 border-slate-200'} border rounded-3xl p-8 hover:border-cyan-500/50 transition-all`}
-          >
-            <FiSmartphone className="text-3xl text-cyan-400 mb-6" />
-            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.projects.dairy.title}</h3>
-            <p className={`text-sm leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{t.projects.dairy.desc}</p>
-            <div className="flex gap-2">
-              {['React.js', 'Node.js', 'MongoDB'].map(t => <span key={t} className={`px-2 py-1 ${theme === 'dark' ? 'bg-white/5 text-slate-400' : 'bg-slate-200 text-slate-700'} rounded-full text-xs`}>{t}</span>)}
-            </div>
-          </motion.div>
-        </div>
+        {/* Project Showcase Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <ProjectShowcase
+            projects={[
+              {
+                title: t.projects.minimoon.title,
+                description: t.projects.minimoon.desc,
+                image: '/projects/minimnoon.png',
+                link: 'https://minimoon.com',
+                tags: ['Next.js', 'AWS', 'Redis', 'Payment Gateway']
+              },
+              {
+                title: t.projects.futurehome.title,
+                description: t.projects.futurehome.desc,
+                image: '/projects/futuerhomedashboard.png',
+                link: 'http://109.199.111.103/admin',
+                tags: ['Laravel', 'CMS', 'Real Estate', 'Dashboard']
+              },
+              {
+                title: t.projects.wesaaltech.title,
+                description: t.projects.wesaaltech.desc,
+                image: '/projects/wesaaltech.png',
+                link: 'https://wesaaltech.com',
+                tags: ['Laravel', 'Authentication', 'Dashboard']
+              },
+              {
+                title: t.projects.mentorship.title,
+                description: t.projects.mentorship.desc,
+                image: '/projects/nafirportal.png',
+                link: 'https://portal.nafir.net/',
+                tags: ['Laravel', 'MySQL', 'RBAC', 'Scheduling']
+              },
+            ]}
+            theme={theme}
+          />
+        </motion.div>
       </section>
 
       <section id="tech" className={`py-24 ${theme === 'dark' ? 'bg-white/[0.02] border-white/5' : 'bg-slate-50 border-slate-200'} border-y`}>
