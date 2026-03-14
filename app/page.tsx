@@ -34,6 +34,10 @@ const translations = {
         title: 'Future Home Real Estate',
         desc: 'Developed a comprehensive real estate platform with custom CMS dashboard for property listings and content management in Saudi Arabia.'
       },
+      futurehomedashboard: {
+        title: 'Future Home CMS Dashboard',
+        desc: 'Built a powerful admin dashboard for managing real estate listings, content, and user interactions with advanced filtering and analytics.'
+      },
       wesaaltech: {
         title: 'Wesaal Tech Platform',
         desc: 'Built a modern tech solutions platform with secure authentication and user management systems.'
@@ -153,6 +157,10 @@ const translations = {
       futurehome: {
         title: 'فيوتشر هوم العقارية',
         desc: 'تطوير منصة عقارية شاملة مع لوحة تحكم CMS مخصصة لإدارة العقارات والمحتوى في السعودية.'
+      },
+      futurehomedashboard: {
+        title: 'لوحة تحكم فيوتشر هوم',
+        desc: 'بناء لوحة تحكم قوية لإدارة العقارات والمحتوى والمستخدمين مع فلترة متقدمة وتحليلات.'
       },
       wesaaltech: {
         title: 'منصة وصال تك',
@@ -369,9 +377,16 @@ export default function SaudiStartupPortfolio() {
               {
                 title: t.projects.futurehome.title,
                 description: t.projects.futurehome.desc,
+                image: '/projects/futuerhomes.png',
+                link: 'https://futurehomessa.com',
+                tags: ['Next.js', 'Real Estate', 'Property Listings']
+              },
+              {
+                title: t.projects.futurehomedashboard.title,
+                description: t.projects.futurehomedashboard.desc,
                 image: '/projects/futuerhomedashboard.png',
                 link: 'http://109.199.111.103/admin',
-                tags: ['Laravel', 'CMS', 'Real Estate', 'Dashboard']
+                tags: ['Laravel', 'CMS', 'Dashboard', 'Admin Panel']
               },
               {
                 title: t.projects.wesaaltech.title,
