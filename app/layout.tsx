@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Readex_Pro, Inter } from 'next/font/google'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
@@ -19,8 +19,12 @@ export const metadata: Metadata = {
   title: 'Naji Ali | Full Stack Developer',
   description: 'Specializing in high-performance eCommerce, B2B SaaS, and digital infrastructure for the MENA region.',
   keywords: ['Full Stack Developer', 'Saudi Startups', 'Next.js', 'Laravel', 'eCommerce Specialist'],
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#0a0c10', 
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0a0c10',
 }
 
 export default function RootLayout({

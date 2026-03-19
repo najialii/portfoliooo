@@ -33,7 +33,7 @@
       visible: {
         opacity: 1, 
         x: 0,
-        transition: { type: 'spring', stiffness: 70, damping: 20 }
+        transition: { type: 'spring' as const, stiffness: 70, damping: 20 }
       }
     }
 
