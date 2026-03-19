@@ -268,85 +268,61 @@ export default function SaudiStartupPortfolio() {
   const isRTL = lang === 'ar'
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0a0c10] text-slate-100' : 'bg-white text-slate-900'} selection:bg-emerald-500/30 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-[#f5f5f7]' : 'bg-[#f5f5f7] text-[#1d1d1f]'} selection:bg-blue-500/30 ${isRTL ? 'rtl' : 'ltr'} font-sans`} dir={isRTL ? 'rtl' : 'ltr'}>
       <CursorFollower />
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3 z-[100] transition-all duration-300 hover:shadow-lg">
-        <div className="flex justify-between items-center">
-          <span className="font-bold tracking-tighter text-xl">NAJI.</span>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400 items-center">
-              <a href="#work" className="hover:text-white transition-colors">{t.nav.solutions}</a>
-              <a href="#tech" className="hover:text-white transition-colors">{t.nav.techStack}</a>
-              <a href="/playground" className="hover:text-purple-400 transition-colors flex items-center gap-1">
-                <FiCode className="text-sm" />
-                {t.nav.playground}
-              </a>
-              <a href="#contact" className="hover:text-emerald-400 transition-colors px-4 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-emerald-400">{t.nav.hireMe}</a>
-            </div>
-            <a 
-              href="/playground"
-              className="md:hidden p-2 bg-purple-500/10 hover:bg-purple-500/20 rounded-full border border-purple-500/20 transition-all"
-              title={t.nav.playground}
-            >
-              <FiCode className="text-lg text-purple-400" />
-            </a>
-            <button 
-              onClick={toggleTheme}
-              className={`relative w-14 h-7 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-slate-700' : 'bg-emerald-500'}`}
-              title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-            >
-              <motion.div
-                className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'} shadow-lg`}
-                animate={{ x: theme === 'dark' ? 0 : 28 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              >
-                {theme === 'dark' ? <FiMoon className="text-xs text-slate-400" /> : <FiSun className="text-xs text-yellow-500" />}
-              </motion.div>
-            </button>
+      <nav className="fixed top-0 left-0 right-0 backdrop-blur-xl bg-opacity-70 z-[100] border-b ${theme === 'dark' ? 'bg-black/70 border-white/[0.05]' : 'bg-white/70 border-black/[0.05]'}">
+        <div className="max-w-[980px] mx-auto h-11 flex justify-between items-center px-6">
+          <span className="font-semibold tracking-tight text-[17px]">Naji Ali</span>
+          <div className="flex items-center gap-6 text-[12px]">
+            <a href="#work" className="hidden md:block opacity-80 hover:opacity-100 transition-opacity">{t.nav.solutions}</a>
+            <a href="#tech" className="hidden md:block opacity-80 hover:opacity-100 transition-opacity">{t.nav.techStack}</a>
+            <a href="/playground" className="hidden md:block opacity-80 hover:opacity-100 transition-opacity">{t.nav.playground}</a>
             <button 
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-              className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 transition-all flex items-center gap-2"
+              className="opacity-80 hover:opacity-100 transition-opacity font-medium"
             >
-              <FaLanguage />
               {lang === 'en' ? 'AR' : 'EN'}
+            </button>
+            <button 
+              onClick={toggleTheme}
+              className="opacity-80 hover:opacity-100 transition-opacity text-base"
+            >
+              {theme === 'dark' ? <FiSun /> : <FiMoon />}
             </button>
           </div>
         </div>
       </nav>
 
-      <section className="relative pt-48 pb-24 px-6 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-emerald-500/10 blur-[120px] rounded-full -z-10" />
-        
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            className="text-emerald-400 font-mono text-sm tracking-widest uppercase mb-4 block"
-          >
+      <section className="pt-32 pb-20 px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
+        >
+          <p className={`text-sm font-semibold tracking-wide uppercase mb-4 ${theme === 'dark' ? 'text-[#86868b]' : 'text-[#6e6e73]'}`}>
             {t.hero.location}
-          </motion.span>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-bold tracking-tight mb-8"
-          >
-            {t.hero.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.hero.titleHighlight}</span>
-          </motion.h1>
-          <p className="max-w-2xl mx-auto text-lg text-slate-400 leading-relaxed mb-10">
+          </p>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[1.05]">
+            {t.hero.title} <br />
+            <span className={theme === 'dark' ? 'text-[#86868b]' : 'text-[#6e6e73]'}>{t.hero.titleHighlight}</span>
+          </h1>
+          <p className={`max-w-2xl mx-auto text-xl md:text-2xl font-medium mb-10 leading-snug ${theme === 'dark' ? 'text-[#86868b]' : 'text-[#6e6e73]'}`}>
             {t.hero.subtitle}
           </p>
           <motion.a
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
             href="/Naji-Ali-Resume.pdf"
             download="Naji-Ali-Resume.pdf"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 rounded-full font-semibold transition-all hover:scale-105"
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all ${
+              theme === 'dark' ? 'bg-[#0071e3] hover:bg-[#0077ed] text-white' : 'bg-[#0071e3] hover:bg-[#0077ed] text-white'
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
             {t.hero.downloadCV}
+            <FiArrowUpRight className="text-lg" />
           </motion.a>
-        </div>
+        </motion.div>
       </section>
 
       <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
