@@ -56,7 +56,7 @@ export default function Portfolio() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">{t.projects.title}</h2>
           <p className={`text-xl ${isDark ? 'text-[#86868b]' : 'text-[#6e6e73]'}`}>Featured work and case studies</p>
         </motion.div>
-        <InfiniteProjectScroll projects={projects} theme={theme} />
+        <InfiniteProjectScroll projects={projects} theme={theme} isRTL={isRTL} />
       </section>
 
       <TechStack t={t} theme={theme} />

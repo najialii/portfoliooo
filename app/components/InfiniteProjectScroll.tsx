@@ -15,9 +15,10 @@ interface Project {
 interface InfiniteProjectScrollProps {
   projects: Project[]
   theme: string
+  isRTL?: boolean
 }
 
-export default function InfiniteProjectScroll({ projects, theme }: InfiniteProjectScrollProps) {
+export default function InfiniteProjectScroll({ projects, theme, isRTL = false }: InfiniteProjectScrollProps) {
   const isDark = theme === 'dark'
   const containerRef = useRef<HTMLDivElement>(null)
   const [contentWidth, setContentWidth] = useState(0)
@@ -31,14 +32,15 @@ export default function InfiniteProjectScroll({ projects, theme }: InfiniteProje
     }
   }, [projects])
 
-  useAnimationFrame((t, delta) => {
-    let moveBy = baseVelocity * (delta / 16)
+  useAnimationFrame((_t, delta) => {
+    // Reverse direction for RTL
+    const direction = isRTL ? 1 : -1
+    let moveBy = direction * Math.abs(baseVelocity) * (delta / 16)
     baseX.set(baseX.get() + moveBy)
 
     if (contentWidth > 0) {
-      if (baseX.get() <= -contentWidth) {
-        baseX.set(0)
-      }
+      if (baseX.get() <= -contentWidth) baseX.set(0)
+      if (baseX.get() >= contentWidth) baseX.set(0)
     }
   })
 
